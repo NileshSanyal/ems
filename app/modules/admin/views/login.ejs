@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title><%= title %></title>
+	<!-- Meta-Tags -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+
+	<!-- Stylesheets -->
+	<link href="/css/admin_login.css" rel='stylesheet' type='text/css' />
+
+	<!-- custom css -->
+	<link href="/css/custom.css" rel='stylesheet' type='text/css' />
+	<!--// Stylesheets -->
+	<!--fonts-->
+	<link href="//fonts.googleapis.com/css?family=Poiret+One&amp;subset=cyrillic,latin-ext" rel="stylesheet">
+	<!--//fonts-->
+</head>
+
+<body>
+	<h1>Sign In to Admin Portal</h1>
+	<div class="w3ls-login box box--big">
+		<!-- form starts here -->
+		<form action="<%= generateUrl('admin.login') %>" method="post">
+			<% if(adminCreateSuccessMessage){ %>
+				<div class="success-alert">
+					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+					<strong>Success!</strong> <%= adminCreateSuccessMessage ? adminCreateSuccessMessage : '' %>
+				</div>
+			<% } %>
+
+			<% if(logoutSuccessMessage){ %>
+				<div class="success-alert">
+					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+					<strong>Success!</strong> <%= logoutSuccessMessage ? logoutSuccessMessage : '' %>
+				</div>
+			<% } %>
+
+			<% if(adminVerifySuccessMessage){ %>
+				<div class="success-alert">
+					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+					<strong>Success!</strong> <%= adminVerifySuccessMessage ? adminVerifySuccessMessage : '' %>
+				</div>
+			<% } %>
+
+			<% if(unAuthorizedErrorMessage){ %>
+				<div class="error-alert">
+					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+					<strong>Error!</strong> <%= unAuthorizedErrorMessage ? unAuthorizedErrorMessage : '' %>
+				</div>
+			<% } %>
+
+			<% if(adminVerifyErrorMessage){ %>
+				<div class="error-alert">
+					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+					<strong>Error!</strong> <%= adminVerifyErrorMessage ? adminVerifyErrorMessage : '' %>
+				</div>
+			<% } %>
+
+
+			<div class="agile-field-txt">
+				<label> Email</label>
+				<input type="text" name="email" id="email" placeholder="Enter Email Address" placeholder="jhon@gmail.com" />
+			</div>
+			<div class="agile-field-txt">
+				<label for="password"> password</label>
+				<input type="password" name="password" id="password" placeholder="Enter Password" />
+				<div class="agile_label">
+					<input id="check3" name="check3" type="checkbox" value="show password" onclick="myFunction()">
+					<label class="check" for="check3">Show password</label>
+				</div>
+				<div class="agile-right">
+					<a href="#">forgot password?</a>
+				</div>
+			</div>
+			<!-- script for show password -->
+			<script>
+				function myFunction() {
+					var x = document.getElementById("myInput");
+					if (x.type === "password") {
+						x.type = "text";
+					} else {
+						x.type = "password";
+					}
+				}
+			</script>
+			<!-- //end script -->
+			<div class="w3ls-bot">
+				<!-- <div class="switch-agileits">
+					<label class="switch">
+						<input type="checkbox">
+						<span class="slider round"></span>
+						Remember Me
+					</label>
+				</div> -->
+				<a href="<%= generateUrl('admin.register') %>" style="color: #00ba9d;">New User? Sign Up Here</a>
+			</div>
+				<input type="submit" value="SIGN IN">
+		</form>
+	</div>
+	<!-- //form ends here -->
+	<!--copyright-->
+	<div class="copy-wthree">
+		<p>© 2019 Sign In . All Rights Reserved</a>
+		</p>
+	</div>
+	<!--//copyright-->
+</body>
+</html>

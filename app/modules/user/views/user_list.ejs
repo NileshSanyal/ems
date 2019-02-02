@@ -1,0 +1,101 @@
+<% include ../../../views/partials/adminhead %>
+
+<body class="cbp-spmenu-push">
+    <div class="main-content">
+
+        <!--left-fixed -navigation-->
+        <% include ../../../views/partials/adminaside %>
+        <div id="page-wrapper">
+            <div class="main-page">
+                <div class="form-grids row widget-shadow">
+                    <div class="table-responsive bs-example widget-shadow"><br>
+                        <div class="text-right">
+                            <a class="btn btn-info" href="<%= generateUrl('user.create') %>">Create</a>
+                        </div><br>
+
+                        <% if(userCreateSuccessMessage){ %>
+                            <div class="alert alert-success alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Success!</strong> <%= userCreateSuccessMessage %>
+                            </div>
+                            <% } %>
+    
+                            <% if(userEditSuccessMessage){ %>
+                                <div class="alert alert-success alert-dismissible">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Success!</strong> <%= userEditSuccessMessage %>
+                                </div>
+                            <% } %>
+    
+                            <% if(userDisableSuccessMessage) { %>
+                                <div class="alert alert-danger alert-dismissible">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Success!</strong> <%= userDisableSuccessMessage %>
+                                </div>
+                            <% } %>
+    
+                            <% if(userEnableSuccessMessage) { %>
+                                <div class="alert alert-success alert-dismissible">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Success!</strong> <%= userEnableSuccessMessage %>
+                                </div>
+                            <% } %>
+
+                        <table id="user_datatable" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Contact Number</th>
+                                    <th>User Type</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if(userList.length > 0){ %>
+                                <% for(var i=0; i< userList.length; i++) {%>
+                                <tr>
+                                    <td>
+                                        <%= userList[i].full_name %>
+                                    </td>
+                                    <td>
+                                        <%= userList[i].email %>
+                                    </td>
+                                    <td>
+                                        <%= userList[i].contact_no %>
+                                    </td>
+                                    <td>
+                                        <%= userList[i].user_type %>
+                                    </td>
+                                    <td>
+                                        <a href="<%= generateUrl('user.edit', {id: userList[i]._id}) %>" class="btn btn-primary">Edit</a>
+
+                                        <% if( userList[i].isDeleted == false){ %>
+                                            <a href="<%= generateUrl('user.disable', {id: userList[i]._id}) %>" class="btn btn-danger">Disable</a>
+                                        <% }else{ %>
+                                        
+                                            <a href="<%= generateUrl('user.enable', {id: userList[i]._id}) %>" class="btn btn-success">Enable</a>
+                                        <% } %>
+
+
+                                    </td>
+
+                                </tr>
+                                <% }%>
+                                <% } else{ %>
+                                <tr>
+                                    <td colspan="5" class="text-center">No records found!</td>
+                                </tr>
+                                <%  } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <% include ../../../views/partials/adminfooter %>
+    </div>
+</body>
+
+</html>

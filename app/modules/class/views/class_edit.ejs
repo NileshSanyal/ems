@@ -1,0 +1,59 @@
+<% include ../../../views/partials/adminhead %>
+
+<body class="cbp-spmenu-push">
+    <div class="main-content">
+
+        <!--left-fixed -navigation-->
+        <% include ../../../views/partials/adminaside %>
+        <div id="page-wrapper">
+            <div class="main-page">
+                <div class="forms">
+                    <h2 class="title1">Forms</h2>
+
+                    <div class=" form-grids row form-grids-right">
+                        <div class="widget-shadow " data-example-id="basic-forms">
+                            <div class="form-title">
+                                <h4>Horizontal form :</h4>
+                            </div>
+                            <div class="form-body">
+                                <form class="form-horizontal" action="<%= generateUrl('class.update') %>" method="POST">
+
+                                    <% if(classUpdateErrorMessage){ %>
+                                    <div class="alert alert-danger alert-dismissible">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <strong>Error!</strong>
+                                        <%= classUpdateErrorMessage %>
+                                    </div>
+                                    <% } %>
+
+                                    <div class="form-group">
+                                        <label for="class_name" class="col-sm-2 control-label">Class Name</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="class_name" name="class_name"
+                                                placeholder="Class Name" value="<%= classDetails.class_name %>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="class_description" class="col-sm-2 control-label">Class Description</label>
+                                        <div class="col-sm-9">
+                                            <!-- <input type="password" class="form-control" id="class_description" placeholder="Password"> -->
+                                            <textarea class="form-control" name="class_description" id="class_description"
+                                                cols="30" rows="10"><%= classDetails.description %></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-offset-2"> <button type="submit" class="btn btn-default">Edit
+                                            Class</button> </div>
+                                    <input type="hidden" name="classIdVal" value="<%= classDetails._id %>" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <% include ../../../views/partials/adminfooter %>
+    </div>
+</body>
+
+</html>

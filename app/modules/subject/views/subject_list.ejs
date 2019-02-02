@@ -1,0 +1,90 @@
+<% include ../../../views/partials/adminhead %>
+
+<body class="cbp-spmenu-push">
+    <div class="main-content">
+
+        <!--left-fixed -navigation-->
+        <% include ../../../views/partials/adminaside %>
+        <div id="page-wrapper">
+            <div class="main-page">
+                <div class="form-grids row widget-shadow">
+                    <div class="table-responsive bs-example widget-shadow"><br>
+                        <div class="text-right">
+                            <a class="btn btn-info" href="<%= generateUrl('subject.create') %>">Create</a>
+                        </div><br>
+
+                        <% if(subjectCreateSuccessMessage){ %>
+                            <div class="alert alert-success alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Success!</strong> <%= subjectCreateSuccessMessage %>
+                            </div>
+                            <% } %>
+    
+                            <% if(subjectEditSuccessMessage){ %>
+                                <div class="alert alert-success alert-dismissible">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Success!</strong> <%= subjectEditSuccessMessage %>
+                                </div>
+                            <% } %>
+    
+                            <% if(subjectDisableSuccessMessage) { %>
+                                <div class="alert alert-danger alert-dismissible">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Success!</strong> <%= subjectDisableSuccessMessage %>
+                                </div>
+                            <% } %>
+    
+                            <% if(subjectEnableSuccessMessage) { %>
+                                <div class="alert alert-success alert-dismissible">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Success!</strong> <%= subjectEnableSuccessMessage %>
+                                </div>
+                            <% } %>
+
+                        <table id="subject_datatable" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                   
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if(subjectList.length > 0){ %>
+                                <% for(var i=0; i< subjectList.length; i++) {%>
+                                <tr>
+                                    <td>
+                                        <%= subjectList[i].subject_name %>
+                                    </td>
+                                   
+                                    <td>
+                                        <a href="<%= generateUrl('subject.edit', {id: subjectList[i]._id}) %>" class="btn btn-primary">Edit</a>
+
+                                        <% if( subjectList[i].isDeleted == false){ %>
+                                            <a href="<%= generateUrl('subject.disable', {id: subjectList[i]._id}) %>" class="btn btn-danger">Disable</a>
+                                        <% }else{ %>
+                                        
+                                            <a href="<%= generateUrl('subject.enable', {id: subjectList[i]._id}) %>" class="btn btn-success">Enable</a>
+                                        <% } %>
+
+                                    </td>
+
+                                </tr>
+                                <% }%>
+                                <% } else{ %>
+                                <tr>
+                                    <td colspan="5" class="text-center">No records found!</td>
+                                </tr>
+                                <%  } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <% include ../../../views/partials/adminfooter %>
+    </div>
+</body>
+
+</html>

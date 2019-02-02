@@ -1,0 +1,89 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Blogpress Register Form</title>
+	<!-- Meta-Tags -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta name="keywords" content="Spin Login Form a Responsive Web Template, Bootstrap Web Templates, Flat Web Templates, Android Compatible Web Template, Smartphone Compatible Web Template, Free Webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design">
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<!-- //Meta-Tags -->
+	<!-- Stylesheets -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/css/style.css" rel='stylesheet' type='text/css' />
+	<!--// Stylesheets -->
+	<!--fonts-->
+	<link href="/css/custom-font.css" rel="stylesheet">
+	<!--//fonts-->
+
+
+
+</head>
+	
+	<body>
+		<h1>Blogpress Register Form </h1>
+		<!--728x90-->
+		<div class="clear-loading spinner">
+			<span></span>
+		</div>
+		<!--728x90-->
+		<div class="w3ls-login box box--big">
+			<!-- form starts here -->
+			<form action="<%= generateUrl('user.registerprocess')  %>" method="post">
+				<div class="agile-field-txt">
+					<label><i class="fa fa-user" aria-hidden="true"></i> Username </label>
+					<input type="text" name="username" placeholder="Enter Username" required="" />
+				</div>
+				<div class="agile-field-txt">
+					<label><i class="fa fa-user" aria-hidden="true"></i> Email </label>
+					<input type="text" name="email" placeholder="Enter Email" required="" />
+				</div>
+				<div class="agile-field-txt">
+					<label><i class="fa fa-unlock-alt" aria-hidden="true"></i> password </label>
+					<input type="password" name="password" placeholder="Enter Password" required="" id="myInput" />
+					<div class="agile_label">
+						<input id="check3" name="check3" type="checkbox" value="show password" onclick="myFunction()">
+						<label class="check" for="check3">Show password</label>
+					</div>
+				</div>
+				<!-- script for show password -->
+				<script>
+					function myFunction() {
+						var x = document.getElementById("myInput");
+						if (x.type === "password") {
+							x.type = "text";
+						} else {
+							x.type = "password";
+						}
+					}
+				</script>
+				<!-- //end script -->
+				<input type="submit" value="REGISTER">
+			</form>
+		</div>
+		<!-- //form ends here -->
+		<!--728x90-->
+		<!--copyright-->
+		<div class="copy-wthree">
+			<p>© 2018 Spin Login Form . All Rights Reserved
+			</p>
+		</div>
+		<!--//copyright-->
+	</body>
+
+</html>
