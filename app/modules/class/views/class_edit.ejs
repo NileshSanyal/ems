@@ -18,13 +18,27 @@
                             <div class="form-body">
                                 <form class="form-horizontal" action="<%= generateUrl('class.update') %>" method="POST">
 
-                                    <% if(classUpdateErrorMessage){ %>
-                                    <div class="alert alert-danger alert-dismissible">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                        <strong>Error!</strong>
-                                        <%= classUpdateErrorMessage %>
-                                    </div>
-                                    <% } %>
+
+
+                                    
+                                    <% if(classUpdateErrorMessage && classUpdateErrorMessage.length > 1){%>
+                                        <% classUpdateErrorMessage.forEach(function(element,index) { %>
+
+                                            <div class="alert alert-danger alert-dismissible">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                <strong>Error!</strong>
+                                                <%= element.errorMessage %>
+                                            </div>
+                                            
+                                        <% }); %>	
+                                    <% }else if(classUpdateErrorMessage && classUpdateErrorMessage.length > 0){ %>
+                                        <div class="alert alert-danger alert-dismissible">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                <strong>Error!</strong>
+                                                <%= classUpdateErrorMessage[0].errorMessage %>
+                                        </div>
+                                    <% } %>	
+                                    
 
                                     <div class="form-group">
                                         <label for="class_name" class="col-sm-2 control-label">Class Name</label>
@@ -36,7 +50,6 @@
                                     <div class="form-group">
                                         <label for="class_description" class="col-sm-2 control-label">Class Description</label>
                                         <div class="col-sm-9">
-                                            <!-- <input type="password" class="form-control" id="class_description" placeholder="Password"> -->
                                             <textarea class="form-control" name="class_description" id="class_description"
                                                 cols="30" rows="10"><%= classDetails.description %></textarea>
                                         </div>

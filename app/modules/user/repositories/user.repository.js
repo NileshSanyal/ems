@@ -22,11 +22,27 @@ var userRepository = {
 
         const { error } = validateUser(userObj);
 
-        let errorDetails;
+        // let errorDetails;
 
         if (error) {
-            errorDetails = error.message;
-            return cb(errorDetails, null);
+
+            let errorArrayLength = error.details.length;
+            let errorsArray = [];
+
+            if(errorArrayLength > 1){
+                for(var i = 0; i< errorArrayLength; i++){
+                    errorsArray.push({"errorMessage": error.details[i].message});
+                }
+            }
+        
+            else{
+
+                errorsArray.push({"errorMessage": error.details[0].message});
+            }
+
+
+            // errorDetails = error.message;
+            return cb(errorsArray, null);
         }
         else {
             let user = new User({

@@ -34,12 +34,8 @@ exports.save = (req, res) => {
                 userRepo.saveUser(req.body, (error, result) => {
 
                     if (error){
-                        console.log('LINE 37:: ');
-                        console.log(error);
                         deffered.reject({ "status": 500, data: [], "message": error });
                     }
-
-                      
 
 
                     else

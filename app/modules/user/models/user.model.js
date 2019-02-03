@@ -20,15 +20,22 @@ var User = mongoose.model('User', userSchema);
 function validateUser(userObj) {
   const userSchema = Joi.object().keys({
 
-    full_name: Joi.string().required().error(new Error('Full name can not be left empty')),
-    email: Joi.string().required().email().error(new Error('Invalid Email address')),
-    contact_no: Joi.string().regex(/^(\+\d{1,3}[789]\d{9})|([789]\d{9})|([0]\d{9})$/).error(new Error('Invalid Contact number')),
+    // full_name: Joi.string().required().error(new Error('Full name can not be left empty')),
+    // email: Joi.string().required().email().error(new Error('Invalid Email address')),
+    // contact_no: Joi.string().regex(/^(\+\d{1,3}[789]\d{9})|([789]\d{9})|([0]\d{9})$/).error(new Error('Invalid Contact number')),
     class_attended: Joi.objectId().required(),
     subjects_taught: Joi.array().items(Joi.objectId().required()),
-    user_type: Joi.string().required().error(new Error('Select at least one user type'))
+    // user_type: Joi.string().required().error(new Error('Select at least one user type'))
+
+    full_name: Joi.string().required(),
+    email: Joi.string().required().email(),
+    contact_no: Joi.string().regex(/^(\+\d{1,3}[789]\d{9})|([789]\d{9})|([0]\d{9})$/),
+    user_type: Joi.string().required()
+
+
   });
 
-  return Joi.validate(userObj, userSchema);
+  return Joi.validate(userObj, userSchema, {abortEarly: false});
 }
 
 module.exports.User = User;

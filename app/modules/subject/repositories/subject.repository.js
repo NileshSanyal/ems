@@ -11,8 +11,25 @@ var subjectRepository = {
         let errorDetails;
 
         if (error) {
-            errorDetails = error.message;
-            return cb(errorDetails, null);
+
+            //
+            let errorArrayLength = error.details.length;
+            let errorsArray = [];
+
+            if(errorArrayLength > 1){
+                for(var i = 0; i< errorArrayLength; i++){
+                    errorsArray.push({"errorMessage": error.details[i].message});
+                }
+            }
+        
+            else{
+
+                errorsArray.push({"errorMessage": error.details[0].message});
+            }
+            //
+            return cb(errorsArray, null);
+            // errorDetails = error.message;
+            // return cb(errorDetails, null);
         }
         else {
             let classId = mongoose.Types.ObjectId(subjectObj.class);
@@ -56,11 +73,26 @@ var subjectRepository = {
 
         const { error } = validateSubject(subjectObj);
 
-        let errorDetails;
+        // let errorDetails;
 
         if (error) {
-            errorDetails = error.message;
-            return cb(errorDetails, null);
+
+            let errorArrayLength = error.details.length;
+            let errorsArray = [];
+
+            if(errorArrayLength > 1){
+                for(var i = 0; i< errorArrayLength; i++){
+                    errorsArray.push({"errorMessage": error.details[i].message});
+                }
+            }
+        
+            else{
+
+                errorsArray.push({"errorMessage": error.details[0].message});
+            }
+
+            // errorDetails = error.message;
+            return cb(errorsArray, null);
         }
         else {
             Subject.findByIdAndUpdate(subjectObj.subjectIdVal, { subject_name: subjectObj.subject_name, class: subjectObj.class }, (err, result) => {

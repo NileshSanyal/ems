@@ -16,7 +16,10 @@ const { isAdminAuthenticated } = require('../../../config/auth');
 var request_param = multer();
 
 namedRouter.get('subject.create', '/create', isAdminAuthenticated, function (req, res) {
-  let subjectCreateErrorMessage = req.flash('subjectCreateErrorMessage')[0];
+
+  // let subjectCreateErrorMessage = req.flash('subjectCreateErrorMessage')[0];
+  let subjectCreateErrorMessage = req.flash('subjectCreateErrorMessage');
+
   classController.getAllClasses(req)
     .then((classData) => {
       res.render('subject/views/subject_create', { classList: classData.data, path: '/subject-list', subjectCreateErrorMessage: subjectCreateErrorMessage });
@@ -58,7 +61,8 @@ namedRouter.post('subject.save', '/save', function (req, res) {
 });
 
 namedRouter.get('subject.edit', '/edit/:id', isAdminAuthenticated, function (req, res) {
-  const subjectUpdateErrorMessage = req.flash('subjectUpdateErrorMessage')[0];
+  // const subjectUpdateErrorMessage = req.flash('subjectUpdateErrorMessage')[0];
+  const subjectUpdateErrorMessage = req.flash('subjectUpdateErrorMessage');
   classController.getAllClasses(req)
     .then((classData) => {
 

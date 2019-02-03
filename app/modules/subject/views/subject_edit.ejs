@@ -17,13 +17,25 @@
 							</div>
 							<div class="form-body">
 								<form class="form-horizontal" action="<%= generateUrl('subject.update') %>" method="POST">
-									<% if(subjectUpdateErrorMessage){ %>
-									<div class="alert alert-danger alert-dismissible">
-										<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-										<strong>Error!</strong>
-										<%= subjectUpdateErrorMessage %>
-									</div>
-									<% } %>
+
+									<% if(subjectUpdateErrorMessage && subjectUpdateErrorMessage.length > 1){%>
+										<% subjectUpdateErrorMessage.forEach(function(element,index) { %>
+							
+											<div class="alert alert-danger alert-dismissible">
+												<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+												<strong>Error!</strong>
+												<%= element.errorMessage %>
+											</div>
+											
+										<% }); %>   
+									<% }else if(subjectUpdateErrorMessage && subjectUpdateErrorMessage.length > 0){ %>
+										<div class="alert alert-danger alert-dismissible">
+												<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+												<strong>Error!</strong>
+												<%= subjectUpdateErrorMessage[0].errorMessage %>
+										</div>
+									<% } %> 
+									
 									<div class="form-group">
 										<label for="subject_name" class="col-sm-2 control-label">Subject Name</label>
 										<div class="col-sm-9">

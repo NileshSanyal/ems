@@ -16,12 +16,26 @@
 								<h4>Horizontal form :</h4>
 							</div>
 							<div class="form-body">
-								<% if(duplicateEmailMessage) { %>
+
+
+								<% if(duplicateEmailMessage && duplicateEmailMessage.length > 1){%>
+									<% duplicateEmailMessage.forEach(function(element,index) { %>
+						
+										<div class="alert alert-danger alert-dismissible">
+											<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+											<strong>Error!</strong>
+											<%= element.errorMessage %>
+										</div>
+										
+									<% }); %>   
+								<% }else if(duplicateEmailMessage && duplicateEmailMessage.length > 0){ %>
 									<div class="alert alert-danger alert-dismissible">
-										<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-										<strong>Error!</strong> <%= duplicateEmailMessage %>
+											<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+											<strong>Error!</strong>
+											<%= duplicateEmailMessage[0].errorMessage %>
 									</div>
-								<% } %>
+								<% } %> 
+
 								<form class="form-horizontal" action="<%= generateUrl('user.save') %>" method="POST">
 									<div class="form-group">
 										<label for="full_name" class="col-sm-2 control-label">Full Name</label>

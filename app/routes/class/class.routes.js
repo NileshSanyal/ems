@@ -21,7 +21,8 @@ var request_param = multer();
 
 
 namedRouter.get('class.create', '/create', isAdminAuthenticated, function (req, res) {
-  let classSaveErrorMessage = req.flash('classSaveErrorMessage')[0];
+  // let classSaveErrorMessage = req.flash('classSaveErrorMessage')[0];
+  let classSaveErrorMessage = req.flash('classSaveErrorMessage');
   res.render('class/views/class_create',
     {
       path: '/class-list',
@@ -60,7 +61,9 @@ namedRouter.post('class.save', '/save', function (req, res, next) {
 
 namedRouter.get('class.edit', '/edit/:id', isAdminAuthenticated, function (req, res) {
 
-  let classUpdateErrorMessage = req.flash('classUpdateErrorMessage')[0];
+  // let classUpdateErrorMessage = req.flash('classUpdateErrorMessage')[0];
+
+  let classUpdateErrorMessage = req.flash('classUpdateErrorMessage');
 
   classController.getClassById(req)
     .then((success) => {

@@ -16,11 +16,19 @@ var Class = mongoose.model('Class', classSchema);
 function validateClass(classObj) {
   const classSchema = Joi.object().keys({
     classIdVal: Joi.objectId(),
-    class_name: Joi.string().required().error(new Error('Class name can not be left empty')),
-    class_description: Joi.string().required().error(new Error('Description can not be left empty'))
+    
+    // class_name: Joi.string().required().error(new Error('Class name can not be left empty')),
+    // class_description: Joi.string().required().error(new Error('Description can not be left empty'))
+
+
+    class_name: Joi.string().required(),
+    class_description: Joi.string().required()
+
+
+    
   });  
 
-  return Joi.validate(classObj, classSchema);
+  return Joi.validate(classObj, classSchema, {abortEarly: false});
 }
 
 module.exports.Class = Class;

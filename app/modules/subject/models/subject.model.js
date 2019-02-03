@@ -17,12 +17,14 @@ var Subject = mongoose.model('Subject', subjectSchema);
 function validateSubject(subjectObj) {
   const subjectSchema = Joi.object().keys({
 
-    subject_name: Joi.string().required().error(new Error('Subject name can not be left empty')),
+    // subject_name: Joi.string().required().error(new Error('Subject name can not be left empty')),
+    subjectIdVal: Joi.objectId(),
+    subject_name: Joi.string().required(),
     class: Joi.objectId()
 
   });
 
-  return Joi.validate(subjectObj, subjectSchema);
+  return Joi.validate(subjectObj, subjectSchema, {abortEarly: false});
 }
 
 module.exports.Subject = Subject;

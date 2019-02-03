@@ -19,7 +19,8 @@ var request_param = multer();
 
 namedRouter.get('user.create', '/create', isAdminAuthenticated, function (req, res) {
 
-  const duplicateEmailMessage = req.flash('duplicateEmailMessage')[0];
+  // const duplicateEmailMessage = req.flash('duplicateEmailMessage')[0];
+  const duplicateEmailMessage = req.flash('duplicateEmailMessage');
 
   classController.getAllClasses(req)
     .then((classData) => {
