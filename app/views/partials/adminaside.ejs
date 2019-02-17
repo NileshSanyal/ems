@@ -40,6 +40,29 @@
             </a>
           </li>
          
+          <li class="treeview <%= path === '/question-list' ? 'active' : '' %>">
+            <a href="<%= generateUrl('question.list')  %>">
+            <i class="fa fa-tasks"></i>
+            <span>Question Management</span>
+            
+            </a>
+          </li> 
+          <li class="treeview <%= path === '/exam-list' ? 'active' : '' %>">
+            <a href="<%= generateUrl('exam.list')  %>">
+            <i class="fa fa-tasks"></i>
+            <span>Exam Management</span>
+            
+            </a>
+          </li>
+
+
+          <li class="treeview <%= path === '/result-list' ? 'active' : '' %>">
+            <a href="<%= generateUrl('result.list')  %>">
+            <i class="fa fa-tasks"></i>
+            <span>Result Management</span>
+            
+            </a>
+          </li>
           
           <li class="treeview">
             <a href="#">

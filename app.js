@@ -131,6 +131,33 @@ fs.readdirSync('./app/routes/admin').forEach(function (file) {
 
 });
 
+fs.readdirSync('./app/routes/exam').forEach(function (file) {
+
+    if (file[0] == '.')
+        return;
+    else
+        namedRouter.use('', '/' + process.env.EXAM_FOLDER_NAME, require('./app/routes/exam/' + file));
+
+});
+
+fs.readdirSync('./app/routes/result').forEach(function (file) {
+
+    if (file[0] == '.')
+        return;
+    else
+        namedRouter.use('', '/' + process.env.RESULT_FOLDER_NAME, require('./app/routes/result/' + file));
+
+});
+
+fs.readdirSync('./app/routes/question').forEach(function (file) {
+
+    if (file[0] == '.')
+        return;
+    else
+        namedRouter.use('', '/' + process.env.QUESTION_FOLDER_NAME, require('./app/routes/question/' + file));
+
+});
+
 
 namedRouter.buildRouteTable();
 routeList = namedRouter.getRouteTable();

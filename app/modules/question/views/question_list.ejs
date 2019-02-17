@@ -1,0 +1,79 @@
+<% include ../../../views/partials/adminhead %>
+
+<body class="cbp-spmenu-push">
+    <div class="main-content">
+
+        <!--left-fixed -navigation-->
+        <% include ../../../views/partials/adminaside %>
+        <div id="page-wrapper">
+            <div class="main-page">
+                <div class="form-grids row widget-shadow">
+                    <div class="table-responsive bs-example widget-shadow"><br>
+                        <div class="text-right">
+                            <a class="btn btn-info" href="<%= generateUrl('question.create') %>">Create</a>
+                        </div><br>
+
+                       
+
+                        <table id="user_datatable" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Question</th>
+                                    <th>Answer 1</th>
+                                    <th>Answer 2</th>
+                                    <th>Answer 3</th>
+                                    <th>Answer 4</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if(questionList.length > 0){ %>
+                                <% for(var i=0; i< questionList.length; i++) {%>
+                                <tr>
+                                    <td>
+                                        <%= questionList[i].question %>
+                                    </td>
+                                    <td>
+                                        <%= questionList[i].answer1 %>
+                                    </td>
+                                    <td>
+                                        <%= questionList[i].answer2 %>
+                                    </td>
+                                    <td>
+                                        <%= questionList[i].answer3 %>
+                                    </td>
+                                    <td>
+                                        <%= questionList[i].answer4 %>
+                                    </td>
+                                    <td>
+                                        <a href="<%= generateUrl('question.edit', {id: questionList[i]._id}) %>" class="btn btn-primary">Edit</a>
+
+                                        <% if( questionList[i].isDeleted == false){ %>
+                                            <a href="<%= generateUrl('question.disable', {id: questionList[i]._id}) %>" class="btn btn-danger">Disable</a>
+                                        <% }else{ %>
+                                        
+                                            <a href="<%= generateUrl('question.enable', {id: questionList[i]._id}) %>" class="btn btn-success">Enable</a>
+                                        <% } %>
+
+
+                                    </td>
+
+                                </tr>
+                                <% }%>
+                                <% } else{ %>
+                                <tr>
+                                    <td colspan="5" class="text-center">No records found!</td>
+                                </tr>
+                                <%  } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <% include ../../../views/partials/adminfooter %>
+    </div>
+</body>
+
+</html>

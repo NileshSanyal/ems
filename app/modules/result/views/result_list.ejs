@@ -1,0 +1,70 @@
+<% include ../../../views/partials/adminhead %>
+
+<body class="cbp-spmenu-push">
+    <div class="main-content">
+
+        <!--left-fixed -navigation-->
+        <% include ../../../views/partials/adminaside %>
+        <div id="page-wrapper">
+            <div class="main-page">
+                <div class="form-grids row widget-shadow">
+                    <div class="table-responsive bs-example widget-shadow"><br>
+                        <div class="text-right">
+                            <a class="btn btn-info" href="<%= generateUrl('exam.create') %>">Create</a>
+                        </div><br>
+
+                       
+
+                        <table id="user_datatable" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Contact Number</th>
+                                    <th>User Type</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if(examList.length > 0){ %>
+                                <% for(var i=0; i< examList.length; i++) {%>
+                                <tr>
+                                    <td>
+                                        <%= examList[i].exam_name %>
+                                    </td>
+                                    <td>
+                                        <%= examList[i].exam_type %>
+                                    </td>
+                                    
+                                    <td>
+                                        <a href="<%= generateUrl('user.edit', {id: examList[i]._id}) %>" class="btn btn-primary">Edit</a>
+
+                                        <% if( examList[i].isDeleted == false){ %>
+                                            <a href="<%= generateUrl('user.disable', {id: examList[i]._id}) %>" class="btn btn-danger">Disable</a>
+                                        <% }else{ %>
+                                        
+                                            <a href="<%= generateUrl('user.enable', {id: examList[i]._id}) %>" class="btn btn-success">Enable</a>
+                                        <% } %>
+
+
+                                    </td>
+
+                                </tr>
+                                <% }%>
+                                <% } else{ %>
+                                <tr>
+                                    <td colspan="5" class="text-center">No records found!</td>
+                                </tr>
+                                <%  } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <% include ../../../views/partials/adminfooter %>
+    </div>
+</body>
+
+</html>
