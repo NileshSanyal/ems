@@ -26,7 +26,7 @@ exports.getAllExam = (req, res) => {
 exports.findSubjectByClass = (req, res) =>{
     var deffered = Q.defer();
     examRepo.findSubjectByClass(req.query, (error, result) => {
-        console.log(JSON.stringify(result, undefined, 2));
+        // console.log(JSON.stringify(result, undefined, 2));
 
             if (error)
                 deffered.reject({ "status": 500, data: [], "message": "Unable to get subject!!" });
@@ -37,19 +37,50 @@ exports.findSubjectByClass = (req, res) =>{
     return deffered.promise;
 };
 
-exports.findQuestionByClassAndSubject = (req, res) =>{
-
+exports.getExamTitleAndSubject = (req, res) => {
     var deffered = Q.defer();
-    // console.log(req.query.exam_class,' ---', req.query.exam_subject);
-    examRepo.findQuestionByClassAndSubject(req.query, (error, result) => {
-        // console.log(JSON.stringify(result, undefined, 2));
+
+    examRepo.getExamTitleAndSubject(req.query, (error, result) => {
+        
 
             if (error)
-                deffered.reject({ "status": 500, data: [], "message": "Unable to get subject!!" });
+                deffered.reject({ "status": 500, data: [], "message": "Unable to get exam title and subject!!" });
     
             else
                 deffered.resolve({ "status": 200, data: result });
     });
+
+    return deffered.promise;
+};
+
+exports.findQuestionByClassAndSubject = (req, res) =>{
+
+    var deffered = Q.defer();
+    examRepo.findQuestionByClassAndSubject(req.query, (error, result) => {
+        if (error)
+            deffered.reject({ "status": 500, data: [], "message": "Unable to get subject!!" });
+
+        else
+            deffered.resolve({ "status": 200, data: result });
+    });
+    return deffered.promise;
+
+};
+
+exports.allotExamForStudent = (req, res) => {
+
+    var deffered = Q.defer();
+
+    examRepo.allotExamForStudent(req.body, (error, result) => {
+
+        if (error)
+            deffered.reject({ "status": 500, data: [], "message": "Unable to get subject!!" });
+
+        else
+            deffered.resolve({ "status": 200, data: [], "message": "Exam successffully allotted to the student" });
+
+    });
+
     return deffered.promise;
 
 };

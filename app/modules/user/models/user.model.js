@@ -10,6 +10,7 @@ var userSchema = new Schema({
   user_type: { type: String, default: 'Student', enum: ['Student', 'Teacher', 'Non-teaching-staff'], required: true },
   class_attended: { type: Schema.Types.ObjectId, ref: 'Class' },
   subjects_taught: [{ type: Schema.Types.ObjectId, ref: 'Subject' }],
+  allotted_exams: [{ type: Schema.Types.ObjectId, ref: 'Exam' }],
   isDeleted: { type: Boolean, default: false },
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now }

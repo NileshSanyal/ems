@@ -5,6 +5,10 @@ const { Exam } = require('../models/exam.model');
 
 const { Question } = require('../../question/models/question.model');
 
+const { Subject } = require('../../subject/models/subject.model');
+
+const { User } = require('../../user/models/user.model');
+
 const _ = require("underscore");
 
 const mongoose = require('mongoose');
@@ -64,19 +68,77 @@ var userRepository = {
 
     findSubjectByClass: (classId, cb) => {
 
-        // console.log(classId.exam_class);
-
         let class_id = classId.exam_class;
 
         Question.find({class_id: class_id}, 'subject_id')
                 .populate('subject_id')
                 .exec((err, results) => {
+                              
                     if (err)
                         return cb(err, null);
                     else
                         return cb(null, results);
                 });
 
+    },
+
+    allotExamForStudent: (examObj, cb) => {
+
+        /*
+            { examSubjects: [ '5c710faa515812292423cf29' ],
+                examStudentId: '5c30e2ae599cf020108ed7e8' }
+
+        */
+
+        //
+        User.findByIdAndUpdate(examObj.examStudentId,
+            {
+                allotted_exams: examObj.examSubjects
+
+            },
+            {
+                new: true,
+                upsert: true
+            }
+            , (err, results) => {
+
+                if (err)
+                    return cb(err, null);
+                else
+                    return cb(null, results);
+
+            });
+        //
+
+        console.log(examObj);
+
+    },
+
+    getExamTitleAndSubject: (examObj, cb) => {
+            Subject
+                .find({class: examObj.class_attended}, 'subject_name _id', (err, subjectData) => {
+                       Exam
+                            .find({})
+                            .populate('exam_subject')
+                            .exec((err, examData) => {
+
+                                examData.forEach(function(exams){
+
+                                    Subject
+                                        .find({_id: exams.exam_subject}, (err, subjectData) => {
+                                            if (err)
+                                                return cb(err, null);
+                                            else {
+                                                console.log(examData);
+                                                return cb(null, examData);
+                                            }    
+                                        });
+
+                                });
+
+                        });
+                       
+                });        
     },
 
     findQuestionByClassAndSubject: (examObj, cb) => {

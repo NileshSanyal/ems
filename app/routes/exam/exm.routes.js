@@ -56,29 +56,21 @@ namedRouter.get('exam.list', '/list', isAdminAuthenticated, function (req, res) 
 });
 
 namedRouter.post('exam.save', '/save', function (req, res) {
-  console.log(JSON.stringify(req.body, undefined, 2));
   examController.save(req)
     .then((success) => {
 
       res.json({success: 1});
-
-      // req.flash('examCreateSuccessMessage', success.message);
-      // res.redirect('/exam/list');
 
     });
 
 });
 
 namedRouter.get('exam.findSubjectByClass', '/findSubjectByClass', isAdminAuthenticated, function (req, res) { 
-  console.log(JSON.stringify(req.query, undefined, 2));
 
   examController.findSubjectByClass(req)
     .then((success) => {
 
       res.json({success: 1, data: success.data});
-
-      // req.flash('examCreateSuccessMessage', success.message);
-      // res.redirect('/exam/list');
 
     }).catch((error) =>{
       res.json({error: 1});
@@ -87,26 +79,36 @@ namedRouter.get('exam.findSubjectByClass', '/findSubjectByClass', isAdminAuthent
 
 });
 
+namedRouter.get('exam.getExamTitleAndSubject', '/getExamTitleAndSubject', isAdminAuthenticated, function (req, res) {
+  examController.getExamTitleAndSubject(req)
+    .then((success) => {
+     
+      res.json({success: 1, data: success.data});
+
+    }).catch((error) =>{
+      res.json({error: 1});
+    });
+});
+
 namedRouter.get('exam.findQuestionByClassAndSubject', '/findQuestionByClassAndSubject', isAdminAuthenticated, function (req, res) {
 
   examController.findQuestionByClassAndSubject(req)
     .then((success) => {
-      /*
-             [ { isDeleted: false,
-       _id: 5c4d6f20c74f2ec5d0ce1d9a,
-       question: 'What is C++ language?',
-       answer1: 'Programming language',
-       answer2: 'Spoken language',
-       answer3: 'Unknown language',
-       answer4: 'Assmbly level language',
-       subject_id: 5c1a5edefa811426f0424f9e,
-       class_id: 5c19dc53fdef1307e43e1383,
-       created_at: 2019-01-27T13:58:17.368Z,
-       updated_at: 2019-01-27T13:58:17.368Z } ] }
-
-      */
 
       res.json({success: 1, data: success.data});
+
+    }).catch((error) =>{
+      res.json({error: 1});
+    });
+
+});
+
+namedRouter.post('exam.allotExamForStudent', '/allotExamForStudent', function (req, res) {
+
+  examController.allotExamForStudent(req)
+    .then((success) => {
+      console.log('LINE 110: ' + success.message);
+      res.json({ success: 1, message: success.message });
 
     }).catch((error) =>{
       res.json({error: 1});

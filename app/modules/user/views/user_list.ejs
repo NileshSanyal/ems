@@ -48,6 +48,7 @@
                                     <th>Email</th>
                                     <th>Contact Number</th>
                                     <th>User Type</th>
+                                    <th>Assign Exam</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -67,6 +68,26 @@
                                     <td>
                                         <%= userList[i].user_type %>
                                     </td>
+
+                                    <% if(userList[i].user_type === 'Student') { %>
+                                        <% if((userList[i].allotted_exams).length == 0) { %>
+                                            <td>
+                                                <a href="#" class="btn btn-info" data-toggle="modal" data-target="#examSubjectModal" data-class_attended_id="<%= userList[i].class_attended %>" data-student_appeared="<%= userList[i]._id %>">Conduct Exam</a>
+                                            </td>
+                                        <% } else { %>
+                                            <td>
+                                                <a href="#" class="btn btn-primary" disabled>Exam Already Allotted</a>
+                                            </td>
+                                        <% } %>    
+                                    <% }  %>
+
+                                    <% if(userList[i].user_type !== 'Student') { %>
+                                        <td>
+                                            <a href="#" class="btn btn-warning" disabled>Not Applicable</a>
+                                        </td>
+                                    <% } %>
+
+
                                     <td>
                                         <a href="<%= generateUrl('user.edit', {id: userList[i]._id}) %>" class="btn btn-primary">Edit</a>
 
@@ -91,7 +112,32 @@
                         </table>
                     </div>
                 </div>
-
+                <!-- exam subjects modal -->
+                <div id="examSubjectModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                  
+                      
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Select Subject on which you want to conduct exam</h4>
+                        </div>
+                        <form method="POST" action="">
+                            <div class="modal-body">
+                            
+                                    <!-- exam subjects appear here for a specific subject and class --> 
+                                    <div class="examDetails"></div>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" id="allotExamBtn" class="btn btn-default">Allot Exam</button>
+                            </div>
+                        </form>
+                      </div>
+                  
+                    </div>
+                  </div>
+                <!-- end exam subjects modal -->
             </div>
         </div>
         <% include ../../../views/partials/adminfooter %>

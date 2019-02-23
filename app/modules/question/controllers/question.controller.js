@@ -25,14 +25,11 @@ exports.getAllquestions = (req, res) => {
 exports.save = (req, res) => {
 
     var deffered = Q.defer();
-    console.log(JSON.stringify(req.body,undefined,2));
     
             
                 questionRepo.saveQuestion(req.body, (error, result) => {
 
                     if (error){
-                        console.log('LINE 37:: ');
-                        console.log(error);
                         deffered.reject({ "status": 500, data: [], "message": error });
                     }
 

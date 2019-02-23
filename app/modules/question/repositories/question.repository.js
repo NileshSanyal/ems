@@ -57,7 +57,6 @@ var questionRepository = {
             .populate('class_id')
             .populate('subject_id')
             .exec((err, questionData) => {
-                console.log(questionData);
                 if (err)
                     return cb(err, null);
                 else

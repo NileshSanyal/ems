@@ -44,8 +44,8 @@
                         <table id="subject_datatable" class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                   
+                                    <th>Subject Name</th>
+                                    <th>Class Name</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -55,6 +55,10 @@
                                 <tr>
                                     <td>
                                         <%= subjectList[i].subject_name %>
+                                    </td>
+
+                                    <td>
+                                        <%= subjectList[i].class.class_name %>
                                     </td>
                                    
                                     <td>

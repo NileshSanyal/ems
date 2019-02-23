@@ -49,7 +49,7 @@ namedRouter.get('user.list', '/list', isAdminAuthenticated, function (req, res) 
   let userEnableSuccessMessage = req.flash('userEnableSuccessMessage')[0];
   userController.getAllUsers(req)
     .then((success) => {
-
+      console.log(JSON.stringify(success.data, undefined, 2));
       res.render('user/views/user_list', { userList: success.data, path: '/user-list', userCreateSuccessMessage: userCreateSuccessMessage, userEditSuccessMessage: userEditSuccessMessage, userDisableSuccessMessage: userDisableSuccessMessage, userEnableSuccessMessage: userEnableSuccessMessage });
 
     });

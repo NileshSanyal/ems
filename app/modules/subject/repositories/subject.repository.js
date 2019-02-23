@@ -48,13 +48,21 @@ var subjectRepository = {
     },
 
     getAllSubjects: (subjects, cb) => {
-        Subject.find({}, (err, results) => {
+        Subject.find()
+            .populate('class')
+            .exec((err, subjects) => {
+                if (err)
+                    return cb(err, null);
+                else 
+                    return cb(null, subjects);    
+            });
+        // Subject.find({}, (err, results) => {
 
-            if (err)
-                return cb(err, null);
-            else
-                return cb(null, results);
-        });
+        //     if (err)
+        //         return cb(err, null);
+        //     else
+        //         return cb(null, results);
+        // });
     },
 
     getSubjectById: (subjectId, cb) => {
