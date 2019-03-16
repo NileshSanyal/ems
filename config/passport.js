@@ -3,8 +3,12 @@ var LocalStrategy = require('passport-local').Strategy;
 
 const { Adminuser } = require('../app/modules/admin/models/admin.model');
 
+
+
 module.exports = (passport) => {
-    
+
+      
+
       passport.use(
         'local-login',
         new LocalStrategy({ usernameField: 'email',passwordField: 'password', passReqToCallback : true }, function(req, email, password, done){

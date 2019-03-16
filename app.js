@@ -26,6 +26,7 @@ const namedRouter = routeLabel(app);
 const passport = require('passport');
 
 require('./config/passport')(passport);
+require('./config/stdpassport')(passport);
 
 const dbConfig = require('./config/database');
 
@@ -158,6 +159,14 @@ fs.readdirSync('./app/routes/question').forEach(function (file) {
 
 });
 
+fs.readdirSync('./app/routes/customer').forEach(function (file) {
+
+    if (file[0] == '.')
+        return;
+    else
+        namedRouter.use('', '/' + process.env.CUSTOMER_FOLDER_NAME, require('./app/routes/customer/' + file));
+
+});
 
 namedRouter.buildRouteTable();
 routeList = namedRouter.getRouteTable();
