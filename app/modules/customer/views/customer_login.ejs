@@ -36,6 +36,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								
 												<div class="signin-form profile">
 													<h2>Sign in Form</h2>
+													<% if(stdLoginErrMessage){ %>
+														<div class="alert alert-danger">
+															<strong>Error!</strong> <%= stdLoginErrMessage ? stdLoginErrMessage : '' %>
+														</div>
+													<% } %>
+													<% if(stdLogoutSuccessMessage) { %>
+														<div class="alert alert-success">
+																<strong>Success!</strong> <%= stdLogoutSuccessMessage ? stdLogoutSuccessMessage : '' %>
+															</div>
+													<% } %>
 													<div class="alert alert-danger" id="signInErr" style="display:none;"></div>	
 													<div class="login-form">
 														<form action="" method="post" name="stdLoginForm" id="stdLoginForm">
