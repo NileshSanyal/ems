@@ -43,9 +43,8 @@ module.exports = (passport) => {
                         }
 
                    */     
-
-
-                    return done(null, user);  
+                    req.session.user = user;
+                    return done(null, user);
                 }   
                     
               });

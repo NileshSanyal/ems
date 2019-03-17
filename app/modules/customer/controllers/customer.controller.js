@@ -4,6 +4,23 @@ var _ = require('underscore');
 
 var customerRepo = require('../repositories/customer.repository');
 
+exports.getExamDetails = (req, res) => {
+
+        var deffered = Q.defer();
+
+        // console.log('Line 11 customer controller: ', req);
+
+        customerRepo.getExamDetails(req, (success, result) =>{
+            if(success)
+                deffered.reject({"status": 200, "message": success});
+            else
+                deffered.resolve({"status": 409, "message": result});
+        });
+
+        return deffered.promise;
+
+
+};
 
 // exports.save = (req, res) => {
 

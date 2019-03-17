@@ -42,7 +42,6 @@ namedRouter.post('customer.login', '/login', passport.authenticate('customer-log
     failureFlash: true
   }),  
   function (req, res) {
-    // console.log(req.body);
     res.redirect('/customer/dashboard');
   });
 
@@ -52,17 +51,15 @@ namedRouter.post('customer.login', '/login', passport.authenticate('customer-log
     if (req.session) {
         req.session.destroy(function(err) {
           if(!err) {
-            res.render('customer/views/customer_login', 
+            // let user = req.session.passport.user;
+            res.redirect('/customer/login');
+            /* res.render('customer/views/customer_login', 
             {
                 title: 'Login | EMS',
                 stdLoginErrMessage: stdLoginErrMessage,
                 stdLogoutSuccessMessage: 'Log out successfully!',
-                /* adminCreateSuccessMessage: '',
-                logoutSuccessMessage: 'You are logged out',
-                unAuthorizedErrorMessage: '',
-                adminVerifySuccessMessage: '',
-                adminVerifyErrorMessage: '' */
-            });
+                
+            }); */
           } 
         });
       }
@@ -79,11 +76,25 @@ namedRouter.get('customer.dashboard', '/dashboard', function (req, res) {
 });
 
 namedRouter.get('customer.exam_central', '/exam-central', function (req, res) {
-  console.log(req.user);
-  res.render('customer/views/student_exam_central', 
-  {
-      title: 'Exam Central | EMS'
+  let studentData = req.session.user;
+  customerController.getExamDetails(studentData)
+        .then((success) => {
+
+          res.render('customer/views/student_exam_central', 
+          {
+              title: 'Exam Central | EMS',
+              studentData: studentData
+          });
+
+  })
+  .catch((success) => {
+    // req.flash('adminVerifySuccessMessage', success.message);
+    // res.redirect('/admin/login'); 
+    console.log('error occurred')
   });
+
+  
+  
 });
 
 module.exports = router;

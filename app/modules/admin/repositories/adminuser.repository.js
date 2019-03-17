@@ -669,7 +669,6 @@ var adminUserRepository = {
 
         } else {
 
-          //
           Adminuser.update( { email: userEmail }, { verify_code: reqToken, isVerifed: true }, { new: true }, ( error, result ) => {
               if( error ) {
                   console.log(error);
@@ -679,7 +678,6 @@ var adminUserRepository = {
               }
               
           });
-          //
 
           // return cb('Your account has been activated successfully!!' , null);
         }

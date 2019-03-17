@@ -16,7 +16,7 @@ var examSchema = new Schema({
   updated_at: { type: Date, default: Date.now }
 });
 
-var Exam = mongoose.model('exam', examSchema);
+var Exam = mongoose.model('Exam', examSchema);
 
 // function validateUser(userObj) {
 //   const examSchema = Joi.object().keys({
