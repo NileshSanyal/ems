@@ -17,7 +17,7 @@ var customerRepository = {
             // console.log('Line 15 customer repo:: ',  typeof(customerId));
 
             // get student data
-            User.findById(customerId)
+            /* User.findById(customerId)
             .populate('allotted_exams')
             .exec((err, studentExamData) => {
                 if (err) {
@@ -25,11 +25,36 @@ var customerRepository = {
                     return cb(err, null);
                 }
                 else{
-                    console.log(studentExamData);
+                    return cb(null, studentExamData);
+                }
+            }); */
+            // end 
+
+            
+             // get student data
+            User.findById(customerId)
+            .populate({ 
+                path: 'allotted_exams',
+                populate: {
+                  path: 'exam_subject',
+                  model: 'Subject',
+                  populate: {
+                      path: 'class',
+                      model: 'Class'
+                  }
+                } 
+             })
+            .exec((err, studentExamData) => {
+                if (err) {
+                    console.log('Error!!: ',err);
+                    return cb(err, null);
+                }
+                else{
                     return cb(null, studentExamData);
                 }
             });
-            // end 
+            // end
+
     }
 
 };

@@ -53,37 +53,61 @@
                                                         </div>
                                                     </div>
                                             </div>
+                                            <% if(examsList.length > 0){ %>
+                                                <% for(var i=0; i< examsList.length; i++) {%>
                                             <div class="list-body">
-                                    <div class="list-el tag-1 tag-2 tag-3">
-                                        <div class="intro">
-                                            <div class="name">Element title</div>
-                                            <div class="other-params">
-                                                <div class="flex-box">
-            
-                                                    <div class="column-2">Other data</div>
-                                                    <div class="column-3">
-                                                        <button class="list-el-column-3">
-                                                            <a class="column-3-link" href="#">Link </a>
-                                                        </button>
+                                                <div class="list-el tag-1 tag-2 tag-3">
+                                                    <div class="intro">
+                                                        <div class="name"><%= examsList[i].exam_name %></div>
+                                                        <div class="other-params">
+                                                            <div class="flex-box">
+                        
+                                                                <div class="column-2"><%= examsList[i].exam_type %></div>
+                                                                <div class="column-3">
+                                                                    <button class="list-el-column-3">
+                                                                        <a class="column-3-link" href="#">Start Exam </a>
+                                                                    </button>
+                                                                </div>
+                        
+                        
+                                                            </div>
+                                                        </div>
                                                     </div>
-            
-            
+                                                    <div class="desc">
+                                                        <div class="excerpt-fullwidth">
+                                                            <p style="
+                                                            font-size: 16px;
+                                                            color: brown;
+                                                            font-weight: bold;
+                                                        ">Subject Name on which exam will be taken: </p> &nbsp;&nbsp;
+                                                            <p style="
+                                                            font-style: italic;
+                                                            font-weight: 800;
+                                                            font-size: 18px;
+                                                            color: green;
+                                                        "> <%= examsList[i].exam_subject.subject_name %> </p> <br>
+                                                            <!-- <p><a href="#">More information link</a></p> -->
+
+                                                            <p style="
+                                                            font-size: 16px;
+                                                            color: brown;
+                                                            font-weight: bold;
+                                                        ">Class Name on which exam will be taken: </p> &nbsp;&nbsp;
+                                                            <p style="
+                                                            font-style: italic;
+                                                            font-weight: 800;
+                                                            font-size: 18px;
+                                                            color: green;
+                                                        "> <%= examsList[i].exam_subject.class.class_name %> </p>
+
+                                                        </div>
+                        
+                        
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="desc">
-                                            <div class="excerpt-fullwidth">
-                                                <p>Ut eget luctus nulla. Sed porta arcu eget convallis eleifend. Donec viverra ex eget aliquet efficitur. Vivamus magna turpis, dapibus ut leo eget, accumsan blandit est. Integer nec lacus quis est vehicula convallis ac quis ligula.</p>
-                                                <p><a href="#">More information link</a></p>
-                                            </div>
-            
-            
-                                        </div>
-                                    </div>
-            
-            
-                        </div>
-            
+                                            </div> <!-- end list-body -->
+                                                <% } %>
+                                            <% } %>
                 </div>
             <!-- end body -->
 

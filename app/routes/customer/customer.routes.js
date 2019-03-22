@@ -76,14 +76,15 @@ namedRouter.get('customer.dashboard', '/dashboard', function (req, res) {
 });
 
 namedRouter.get('customer.exam_central', '/exam-central', function (req, res) {
-  let studentData = req.session.user;
-  customerController.getExamDetails(studentData)
+  let userData = req.session.user;
+  // console.log('-------------Exams list-----------');
+  // let examsList = userData.allotted_exams;
+  customerController.getExamDetails(userData)
         .then((success) => {
-
           res.render('customer/views/student_exam_central', 
           {
               title: 'Exam Central | EMS',
-              studentData: studentData
+              examsList: success.message.allotted_exams
           });
 
   })
