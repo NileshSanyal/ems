@@ -1,0 +1,110 @@
+<% include ../../../views/partials/customerhead %>
+
+
+<body>
+    <!-- banner -->
+    <div class="wthree_agile_admin_info">
+              <!-- /w3_agileits_top_nav-->
+              <!-- /nav-->
+              <div class="w3_agileits_top_nav">
+                <ul id="gn-menu" class="gn-menu-main">
+                           <!-- /nav_agile_w3l -->
+                    <li class="gn-trigger">
+                        <a class="gn-icon gn-icon-menu"><i class="fa fa-bars" aria-hidden="true"></i><span>Menu</span></a>
+                        
+    <% include ../../../views/partials/customeraside %>
+
+    
+    <div class="inner_content"> 
+        
+        <div class="inner_content_w3_agile_info">
+
+        
+
+<!-- section for showing questions -->
+<div class="inner_content_w3_agile_info two_in">
+    <div class="forms-main_agileits">
+                                                            
+        <div class="graph-form agile_info_shadow">
+        <h3 class="w3_inner_tittle two text-center">Exam Time:: 00:02:00 (2 min)  </h3>
+                <div class="form-body">
+                    <form action="" method="post"> 
+
+                        <!-- <div class="form-group"> 
+                            <h5>Question Body</h5>
+                        </div> 
+                        <div class="radio block">
+                            <label>
+                                <input type="radio" name="ques_one_answer"> Answer1
+                            </label>
+                        </div> -->
+
+                        <br>
+
+                        <!-- question with options layout -->
+                        <!-- <div class="form-group">
+                            <label for="radio" class="col-sm-2 control-label">Radio</label>
+                            <div class="col-sm-8">
+                                <div class="radio block"><label><input type="radio"> Unchecked</label></div>
+                                <div class="radio block"><label><input type="radio" checked=""> Checked</label></div>
+                                <div class="radio block"><label><input type="radio" disabled=""> Disabled Unchecked</label></div>
+                                <div class="radio block"><label><input type="radio" disabled="" checked=""> Disabled Checked</label></div>
+                            </div>
+                        </div> -->
+                        <!-- end question with options layout -->
+
+                        <!-- dynamic layout -->
+                        <% if(questionWithOptions.length > 0) { %>
+                            <% for(var i = 0; i< questionWithOptions.length; i++) { %>    
+                        <div class="form-group">
+                            <div class="question-answer-block">
+                                    <div class="col-sm-12 question-block">
+                                        <label for="radio" class="col-sm-2 control-label"><%= questionWithOptions[i].question %></label>
+                                        <input type="hidden" name="qa[qId][]" value="<%= questionWithOptions[i]._id %>">
+                                    </div>
+                                        
+                                    <div class="col-sm-12 answer-block">
+                                        <div class="radio block">
+                                            <label>
+                                                <input type="radio" name="qa<%= i+1 %>[answer][]" value="<%= questionWithOptions[i].answer1 %>"> <%= questionWithOptions[i].answer1 %>
+                                            </label>
+                                        </div>
+                                        <div class="radio block">
+                                            <label>
+                                                <input type="radio" name="qa<%= i+1 %>[answer][]" value="<%= questionWithOptions[i].answer2 %>"> <%= questionWithOptions[i].answer2 %>
+                                            </label>
+                                        </div>
+                                        <div class="radio block">
+                                            <label>
+                                                <input type="radio" name="qa<%= i+1 %>[answer][]" value="<%= questionWithOptions[i].answer3 %>"> <%= questionWithOptions[i].answer3 %>
+                                            </label>
+                                        </div>
+                                        <div class="radio block">
+                                            <label>
+                                                <input type="radio" name="qa<%= i+1 %>[answer][]" value="<%= questionWithOptions[i].answer4 %>"> <%= questionWithOptions[i].answer4 %>
+                                            </label>
+                                        </div>
+                                    </div>
+                            </div>
+                            
+                        </div>
+                            <% } %>
+                        <% } %>
+                        <!-- end dynamic layout -->
+                        <input type="hidden" name="student_id" id="student_id" value="<%= studentId %>">
+                        <input type="hidden" name="exam_id" id="exam_id" value="<%= examId %>">
+                        <button type="submit" class="btn btn-default" id="finishExmBtn">Finish Exam</button>
+                    </form> 
+                </div>
+
+        </div>
+    </div> 
+</div>
+<!-- end question section -->
+</div> <!-- end inner_content_w3_agile_info -->
+</div> <!-- end inner_content -->
+
+<% include ../../../views/partials/customerfooter %>
+ 
+
+</html>

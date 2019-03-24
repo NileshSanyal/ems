@@ -77,8 +77,6 @@ namedRouter.get('customer.dashboard', '/dashboard', function (req, res) {
 
 namedRouter.get('customer.exam_central', '/exam-central', function (req, res) {
   let userData = req.session.user;
-  // console.log('-------------Exams list-----------');
-  // let examsList = userData.allotted_exams;
   customerController.getExamDetails(userData)
         .then((success) => {
           res.render('customer/views/student_exam_central', 
@@ -88,14 +86,45 @@ namedRouter.get('customer.exam_central', '/exam-central', function (req, res) {
           });
 
   })
-  .catch((success) => {
+  .catch((error) => {
     // req.flash('adminVerifySuccessMessage', success.message);
     // res.redirect('/admin/login'); 
     console.log('error occurred')
   });
+});
 
+namedRouter.get('customer.exam-start', '/exam-start/:examId', function (req, res) {
+  // console.log('------------');
+  // console.log(req.params.examId);
+  let examId = req.params.examId;
+  let studentId = req.session.user._id;
+  customerController.getQuestionsByExamId(examId)
+      .then((success) => {
+        res.render('customer/views/exam_page', {
+          title: 'Exam Page | EMS',
+          studentId: studentId,
+          examId: examId,
+          questionWithOptions: success.data.questions
+        });
+    });
+});
+
+namedRouter.post('customer.exam-finish', '/customer-exam/finish', function (req, res) {
+
+  // console.log(req.body.qa_details);
+  let finishedExmObj = {};
+
+  finishedExmObj.question_answer_details = req.body.qa_details;
+  finishedExmObj.student_id = req.body.student_id;
+  finishedExmObj.exam_id = req.body.exam_id;
   
-  
+  customerController.finishExam(finishedExmObj)
+    .then((success) => {
+      res.render('customer/views/report_page', {
+          title: 'Report Page | EMS'
+      });
+    });
+
 });
 
 module.exports = router;

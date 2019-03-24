@@ -97,7 +97,7 @@ exports.save = (req, res) => {
                     }
 
                     else
-                        deffered.resolve({ "status": 200, data: result, "message": "User created  successfully!!" });
+                        deffered.resolve({ "status": 200, data: result, "message": "Exam created  successfully!!" });
 
                 });
 

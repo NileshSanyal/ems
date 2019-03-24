@@ -10,9 +10,9 @@ exports.getExamDetails = (req, res) => {
 
         // console.log('Line 11 customer controller: ', req);
 
-        customerRepo.getExamDetails(req, (success, result) =>{
-            if(success)
-                deffered.reject({"status": 200, "message": success});
+        customerRepo.getExamDetails(req, (error, result) =>{
+            if(error)
+                deffered.reject({"status": 200, "message": error});
             else
                 deffered.resolve({"status": 409, "message": result});
         });
@@ -22,23 +22,32 @@ exports.getExamDetails = (req, res) => {
 
 };
 
-// exports.save = (req, res) => {
+exports.getQuestionsByExamId = (req, res) => {
+    var deffered = Q.defer();
 
-//     var deffered = Q.defer();
-    
-//         examRepo.saveExam(req.body, (error, result) => {
+    customerRepo.getQuestionsByExamId(req, (error, result) => {
+        if(error)
+            deffered.reject({"status": 200, "message": error});
+        else
+            deffered.resolve({"status": 409, "data": result});
+    });
 
-//                     if (error){
-//                         console.log(error);
-//                         deffered.reject({ "status": 500, data: [], "message": error });
-//                     }
+    return deffered.promise;
+};
 
-//                     else
-//                         deffered.resolve({ "status": 200, data: result, "message": "User created  successfully!!" });
+exports.finishExam = (req, res) => {
 
-//                 });
+    var deffered = Q.defer();
 
+    // console.log('Line 43: customer Controller',req);
 
+    customerRepo.finishExam(req, (error, result) => {
+        if(error)
+            deffered.reject({"status": 200, "message": error});
+        else
+            deffered.resolve({"status": 409, "successMsg": result});
+    });
 
-//     return deffered.promise;
-// };
+    return deffered.promise;
+
+};

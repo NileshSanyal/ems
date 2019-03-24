@@ -22,27 +22,7 @@ module.exports = (passport) => {
                   return done(null, false, req.flash('stdLoginErrMessage', 'No user found.'));  
                 }
                 else{
-                    
-                   /*
-                        {
-                            "user_type": "Student",
-                            "subjects_taught": [],
-                            "allotted_exams": [
-                                "5c710faa515812292423cf29",
-                                "5c7172cad349cd185c687f15"
-                            ],
-                            "isDeleted": false,
-                            "_id": "5c8a71a2107905205c530014",
-                            "full_name": "Jhon Doe",
-                            "email": "jhon@gmail.com",
-                            "contact_no": "8844556699",
-                            "class_attended": "5c70c57ac6eebb0e80ed3257",
-                            "created_at": "2019-03-14T15:22:10.488Z",
-                            "updated_at": "2019-03-14T15:22:10.489Z",
-                            "__v": 0
-                        }
-
-                   */     
+                         
                     req.session.user = user;
                     return done(null, user);
                 }   
