@@ -112,12 +112,27 @@ namedRouter.get('customer.exam-start', '/exam-start/:examId', function (req, res
 namedRouter.post('customer.exam-finish', '/customer-exam/finish', function (req, res) {
 
   // console.log(req.body.qa_details);
-  let finishedExmObj = {};
+  let exam_details = [];
+  let finishedExmObj = { exam_details  };
+
+  // finishedExmObj.exam_details.exam_status = 'Started';
+  // finishedExmObj.exam_details.exam_start_time = new Date(); 
+
+  finishedExmObj.exam_details.push({
+    'exam_status': 'Started',
+    'exam_start_time': new Date(),
+    'exam_end_time': new Date(),
+    'time_spent_by_student': '',
+    'exam_id': req.body.exam_id
+  });
+
 
   finishedExmObj.question_answer_details = req.body.qa_details;
   finishedExmObj.student_id = req.body.student_id;
-  finishedExmObj.exam_id = req.body.exam_id;
+  // finishedExmObj.exam_id = req.body.exam_id;
   
+  // console.log(JSON.stringify(finishedExmObj, undefined, 2));
+
   customerController.finishExam(finishedExmObj)
     .then((success) => {
       res.render('customer/views/report_page', {
@@ -125,6 +140,12 @@ namedRouter.post('customer.exam-finish', '/customer-exam/finish', function (req,
       });
     });
 
+});
+
+namedRouter.get('customer.exam-report', '/customer-exam/report', function (req, res) {
+  res.render('customer/views/report_page', {
+    title: 'Report Page | EMS'
+});
 });
 
 module.exports = router;

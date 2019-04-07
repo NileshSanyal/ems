@@ -42,6 +42,7 @@ exports.finishExam = (req, res) => {
     // console.log('Line 43: customer Controller',req);
 
     customerRepo.finishExam(req, (error, result) => {
+        
         if(error)
             deffered.reject({"status": 200, "message": error});
         else

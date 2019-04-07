@@ -6,13 +6,14 @@ var Schema = mongoose.Schema;
 var examPerformanceSchema = new Schema({
  
   student_id: {type: Schema.Types.ObjectId, ref: 'User', required: true},
-  exam_id: {type: Schema.Types.ObjectId, ref: 'Exam', required: true},  
+   
   exam_details: [
     {
         exam_status: { type: String, default: 'Started', enum: ['Started', 'Finished', 'Pending'] },
-        exam_start_time: {type: Date, default: Date.now},
-        exam_end_time: {type: Date, default: Date.now},
-        time_spent_by_student: {type: String, default: '10 minutes'}
+        exam_start_time: {type: Date},
+        exam_end_time: {type: Date},
+        time_spent_by_student: {type: String},
+        exam_id: {type: Schema.Types.ObjectId, ref: 'Exam', required: true}
     }
   ],
   question_answer_details: [

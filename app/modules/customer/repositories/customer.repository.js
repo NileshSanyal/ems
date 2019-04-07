@@ -64,30 +64,11 @@ var customerRepository = {
     },
 
     finishExam: (finishedExmObj, cb) => {
-        // console.log('Line 67: customer repository');
-        // console.log(JSON.stringify(finishedExmObj, undefined, 2));
 
-        /*
-            {
-                "question_answer_details": [
-                    {
-                    "question_id": "5c70d41ac9307e0468851ed0",
-                    "answer_given": "It is a logical way to connect multiple tables by unique key/keys."
-                    },
-                    {
-                    "question_id": "5c70e516a4d11129d83855f2",
-                    "answer_given": "Table is a logical unit."
-                    }
-                ],
-                "student_id": "5c8a71a2107905205c530014",
-                "exam_id": "5c7172cad349cd185c687f15"
-            }
+        // prev working code without conditions 
 
-        */
-
-        let exmPerf = new ExamPerformance({
+        /* let exmPerf = new ExamPerformance({
             student_id: finishedExmObj.student_id,
-            exam_id: finishedExmObj.exam_id,
             exam_details: finishedExmObj.exam_details,
             question_answer_details: finishedExmObj.question_answer_details
         });
@@ -97,7 +78,107 @@ var customerRepository = {
                 return cb(err, null);
             else
                 return cb(null, 'Exam finished successfully!');
-        });
+        }); */
+
+        // end prev working code without conditions 
+
+         /*
+            Intended output for saving document in mongodb
+            {
+                "exam_details": [
+                    {
+                        "exam_status": "Started",
+                        "exam_start_time": "2019-03-30T15:23:56.467Z",
+                        "exam_end_time": "2019-03-30T15:23:56.467Z",
+                        "time_spent_by_student": "",
+                        "exam_id": "5c7172cad349cd185c687f15"
+                    }
+                ],
+                "question_answer_details": [
+                    {
+                        "question_id": "5c70d41ac9307e0468851ed0",
+                        "answer_given": "It is a logical way to connect multiple tables by unique key/keys."
+                    },
+                    {
+                        "question_id": "5c70e516a4d11129d83855f2",
+                        "answer_given": "Table is a logical unit."
+                    }
+                ],
+                "student_id": "5c8a71a2107905205c530014"
+            }
+
+
+        */
+
+
+        // another approach
+        ExamPerformance.findOneAndUpdate(
+            { student_id: finishedExmObj.student_id }, 
+            { $push: { exam_details: finishedExmObj.exam_details, question_answer_details: finishedExmObj.question_answer_details } },
+            function(err, doc) {
+                if (doc)
+                    return cb(err, null);
+                else{
+                    // insert
+                    let exmPerf = new ExamPerformance({
+                        student_id: finishedExmObj.student_id,
+                        exam_details: finishedExmObj.exam_details,
+                        question_answer_details: finishedExmObj.question_answer_details
+                    });
+            
+                    exmPerf.save((err, exmPrfObj) => {
+                        if (err)
+                            return cb(err, null);
+                        else
+                            return cb(null, 'Exam finished successfully!');
+                    });
+                }
+                    // return cb(null, 'Exam finished successfully!');
+            }
+        );
+        // end another approach
+
+
+        // check if data already exists for a student, if so update collection, otherwise insert
+
+        /* ExamPerformance
+            .findOne({student_id: finishedExmObj.student_id}, function(err, docs) {
+                if(docs) {
+                    console.log('If block');
+                    console.log('Modified obj: ');
+                    console.log('===========');
+                    console.log(JSON.stringify(finishedExmObj, undefined, 2));
+                    console.log('===========');
+                    // let exmPerf = new ExamPerformance();
+
+                    // update subdocuments (exam_details array and question_answer_details array) accordingly
+                    docs.exam_details.push(finishedExmObj.exam_details);
+                    docs.question_answer_details.push(finishedExmObj.question_answer_details);
+                    docs.save((err, docs) => {
+                        if (err)
+                            return cb(err, null);
+                        else
+                            return cb(null, 'Exam finished successfully!');
+                    });
+                }
+
+                else {
+                    console.log('Else block');
+                    let exmPerf = new ExamPerformance({
+                        student_id: finishedExmObj.student_id,
+                        exam_details: finishedExmObj.exam_details,
+                        question_answer_details: finishedExmObj.question_answer_details
+                    });
+            
+                    exmPerf.save((err, exmPrfObj) => {
+                        if (err)
+                            return cb(err, null);
+                        else
+                            return cb(null, 'Exam finished successfully!');
+                    });
+                }
+            }); */
+
     }
 
 };
