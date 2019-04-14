@@ -39,8 +39,6 @@ exports.finishExam = (req, res) => {
 
     var deffered = Q.defer();
 
-    // console.log('Line 43: customer Controller',req);
-
     customerRepo.finishExam(req, (error, result) => {
         
         if(error)

@@ -34,7 +34,7 @@ exports.save = (req, res) => {
                     }
 
                     else
-                        deffered.resolve({ "status": 200, data: result, "message": "User created  successfully!!" });
+                        deffered.resolve({ "status": 200, data: result, "message": "Question created  successfully!!" });
 
                 });
             
@@ -54,7 +54,7 @@ exports.getQuestionById = (req, res) => {
 
 
         else
-            deffered.resolve({ "status": 200, data: result, "message": "User details fetched  successfully!!" });
+            deffered.resolve({ "status": 200, data: result, "message": "Question details fetched  successfully!!" });
 
     });
 
@@ -62,51 +62,51 @@ exports.getQuestionById = (req, res) => {
 
 };
 
-exports.updateUser = (req, res) => {
+exports.updateQuestion = (req, res) => {
 
     var deffered = Q.defer();
 
-    questionRepo.updateUser(req.body, (error, result) => {
+    questionRepo.updateQuestion(req.body, (error, result) => {
         if (error)
             deffered.reject({ "status": 500, data: [], "message": error });
 
 
         else
-            deffered.resolve({ "status": 200, data: result, "message": "User data updated  successfully!!" });
+            deffered.resolve({ "status": 200, data: result, "message": "Question details updated successfully!!" });
     });
 
     return deffered.promise;
 
 };
 
-exports.disableUser = (req, res) =>{
+exports.disableQuestion = (req, res) =>{
 
     var deffered = Q.defer();
 
-    questionRepo.disableUser(req, (error, result) =>{
+    questionRepo.disableQuestion(req, (error, result) =>{
         if(error)
-            deffered.reject({ "status": 500, data: [], "message": "Unable to disable user, please try again later!!"  });
+            deffered.reject({ "status": 500, data: [], "message": "Unable to disable question, please try again later!!"  });
         
             
         else    
-            deffered.resolve({ "status": 200, data: result, "message": "User disabled  successfully!!"  });   
+            deffered.resolve({ "status": 200, data: result, "message": "Question disabled  successfully!!"  });   
     });
 
     return deffered.promise;
 
 };
 
-exports.enableUser = (req, res) =>{
+exports.enableQuestion = (req, res) =>{
 
     var deffered = Q.defer();
 
-    questionRepo.enableUser(req, (error, result) =>{
+    questionRepo.enableQuestion(req, (error, result) =>{
         if(error)
-            deffered.reject({ "status": 500, data: [], "message": "Unable to enable user, please try again later!!"  });
+            deffered.reject({ "status": 500, data: [], "message": "Unable to enable question, please try again later!!"  });
         
             
         else    
-            deffered.resolve({ "status": 200, data: result, "message": "User enabled  successfully!!"  });   
+            deffered.resolve({ "status": 200, data: result, "message": "Question enabled  successfully!!"  });   
     });
 
     return deffered.promise;

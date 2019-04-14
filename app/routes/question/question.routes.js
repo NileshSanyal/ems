@@ -76,13 +76,12 @@ namedRouter.post('question.save', '/save', function (req, res) {
 namedRouter.get('question.edit', '/edit/:id', isAdminAuthenticated, function (req, res) {
   let questionUpdateErrorMessage = req.flash('questionUpdateErrorMessage')[0];
   classController.getAllClasses(req)
-    .then((classList) => {
+    .then((classList) => {            // checked array output by console.log
       questionController.getQuestionById(req)
-        .then((success) => {
+        .then((success) => {          // checked array output by console.log
 
           subjectController.getAllSubjects(req)
-            .then((subjectData) => {
-
+            .then((subjectData) => {  // checked array output by console.log
               res.render('question/views/question_edit.ejs',
                 {
                   questionDetails: success.data,
@@ -109,8 +108,7 @@ namedRouter.get('question.edit', '/edit/:id', isAdminAuthenticated, function (re
 });
 
 namedRouter.post('question.update', '/update', function (req, res) {
-  // console.log(JSON.stringify(req.body, undefined, 2));
-  questionController.updatequestion(req)
+  questionController.updateQuestion(req)
     .then((success) => {
 
       req.flash('questionEditSuccessMessage', success.message);
@@ -127,7 +125,7 @@ namedRouter.post('question.update', '/update', function (req, res) {
 
 namedRouter.get('question.disable', '/disable/:id', isAdminAuthenticated, function (req, res) {
 
-  questionController.disablequestion(req)
+  questionController.disableQuestion(req)
     .then((success) => {
 
       req.flash('questionDisableSuccessMessage', success.message);
@@ -144,7 +142,7 @@ namedRouter.get('question.disable', '/disable/:id', isAdminAuthenticated, functi
 
 namedRouter.get('question.enable', '/enable/:id', isAdminAuthenticated, function (req, res) {
 
-  questionController.enablequestion(req)
+  questionController.enableQuestion(req)
     .then((success) => {
 
       req.flash('questionEnableSuccessMessage', success.message);

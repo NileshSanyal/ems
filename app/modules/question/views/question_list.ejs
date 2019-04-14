@@ -13,7 +13,33 @@
                             <a class="btn btn-info" href="<%= generateUrl('question.create') %>">Create</a>
                         </div><br>
 
-                       
+                        <% if(questionCreateSuccessMessage){ %>
+                            <div class="alert alert-success alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Success!</strong> <%= questionCreateSuccessMessage %>
+                            </div>
+                        <% } %>
+    
+                        <% if(questionEditSuccessMessage){ %>
+                            <div class="alert alert-success alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Success!</strong> <%= questionEditSuccessMessage %>
+                            </div>
+                        <% } %>
+
+                        <% if(questionDisableSuccessMessage) { %>
+                            <div class="alert alert-danger alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Success!</strong> <%= questionDisableSuccessMessage %>
+                            </div>
+                        <% } %>
+
+                        <% if(questionEnableSuccessMessage) { %>
+                            <div class="alert alert-success alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Success!</strong> <%= questionEnableSuccessMessage %>
+                            </div>
+                        <% } %>
 
                         <table id="user_datatable" class="table table-bordered">
                             <thead>

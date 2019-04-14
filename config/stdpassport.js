@@ -23,7 +23,7 @@ module.exports = (passport) => {
                 }
                 else{
                          
-                    req.session.user = user;
+                    req.session.stduser = user;
                     return done(null, user);
                 }   
                     

@@ -119,12 +119,25 @@ var customerRepository = {
                 if (doc)
                     return cb(err, null);
                 else{
+                    let exmPerf;
                     // insert
-                    let exmPerf = new ExamPerformance({
-                        student_id: finishedExmObj.student_id,
-                        exam_details: finishedExmObj.exam_details,
-                        question_answer_details: finishedExmObj.question_answer_details
-                    });
+
+                    if (typeof finishedExmObj.question_answer_details !== 'undefined' && finishedExmObj.question_answer_details.length > 0) {
+                        exmPerf = new ExamPerformance({
+                            student_id: finishedExmObj.student_id,
+                            exam_details: finishedExmObj.exam_details,
+                            question_answer_details: finishedExmObj.question_answer_details
+                        });
+                    }
+
+                    else {
+                        exmPerf = new ExamPerformance({
+                            student_id: finishedExmObj.student_id,
+                            exam_details: finishedExmObj.exam_details
+                        });
+                    }
+
+                    
             
                     exmPerf.save((err, exmPrfObj) => {
                         if (err)

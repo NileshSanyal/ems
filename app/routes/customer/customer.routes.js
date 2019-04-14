@@ -11,28 +11,29 @@ var passport   = require('passport');
 
 var multer = require('multer');
 
-// const { isAdminAuthenticated } = require('../../../config/auth');
+const { isCustomerAuthenticated  } = require('../../../config/customerauth');
 
 var request_param = multer();
-
-namedRouter.get('customer.register', '/register', function (req, res) {
-
-  res.render('customer/views/customer_register', 
-        {
-            title: 'Register | EMS'
-        });
-
-});
 
 namedRouter.get('customer.login', '/login', function (req, res) {
   let stdLoginErrMessage = req.flash('stdLoginErrMessage')[0];
   let stdLogoutSuccessMessage = req.flash('stdLogoutSuccessMessage')[0];
-  res.render('customer/views/customer_login', 
+  let unAuthorizedErrorMessage = req.flash('unAuthorizedErrorMessage')[0];
+
+    if(req.session.stduser != undefined){
+      res.redirect('/customer/dashboard');
+    }
+    else {
+      res.render('customer/views/customer_login', 
         {
-            title: 'Login | EMS',
-            stdLoginErrMessage: stdLoginErrMessage,
-            stdLogoutSuccessMessage: stdLogoutSuccessMessage
-        });
+          title: 'Login | EMS',
+          stdLoginErrMessage: stdLoginErrMessage,
+          stdLogoutSuccessMessage: stdLogoutSuccessMessage,
+          unAuthorizedErrorMessage: unAuthorizedErrorMessage
+      });
+    }
+
+    
 
 });
 
@@ -48,25 +49,27 @@ namedRouter.post('customer.login', '/login', passport.authenticate('customer-log
   namedRouter.get('customer.logout', '/logout', function(req, res){
     req.logout();
     let stdLoginErrMessage = req.flash('stdLoginErrMessage')[0];
-    if (req.session) {
-        req.session.destroy(function(err) {
-          if(!err) {
+    // let unAuthorizedErrorMessage = req.flash('unAuthorizedErrorMessage')[0];
+    var sess = req.session.stduser;
+    if (sess) {
+            req.session.stduser = null;
+
             // let user = req.session.passport.user;
-            res.redirect('/customer/login');
-            /* res.render('customer/views/customer_login', 
+            // res.redirect('/customer/login');
+            res.render('customer/views/customer_login', 
             {
                 title: 'Login | EMS',
                 stdLoginErrMessage: stdLoginErrMessage,
                 stdLogoutSuccessMessage: 'Log out successfully!',
-                
-            }); */
-          } 
-        });
+                unAuthorizedErrorMessage: ''
+            });
+          
+        
       }
 
 });  
 
-namedRouter.get('customer.dashboard', '/dashboard', function (req, res) {
+namedRouter.get('customer.dashboard', '/dashboard', isCustomerAuthenticated,  function (req, res) {
 
   res.render('customer/views/dashboard', 
         {
@@ -75,8 +78,9 @@ namedRouter.get('customer.dashboard', '/dashboard', function (req, res) {
 
 });
 
-namedRouter.get('customer.exam_central', '/exam-central', function (req, res) {
-  let userData = req.session.user;
+namedRouter.get('customer.exam_central', '/exam-central', isCustomerAuthenticated,  function (req, res) {
+  // let userData = req.session.user;
+  let userData = req.session.stduser;
   customerController.getExamDetails(userData)
         .then((success) => {
           res.render('customer/views/student_exam_central', 
@@ -93,11 +97,12 @@ namedRouter.get('customer.exam_central', '/exam-central', function (req, res) {
   });
 });
 
-namedRouter.get('customer.exam-start', '/exam-start/:examId', function (req, res) {
+namedRouter.get('customer.exam-start', '/exam-start/:examId', isCustomerAuthenticated,  function (req, res) {
   // console.log('------------');
   // console.log(req.params.examId);
   let examId = req.params.examId;
-  let studentId = req.session.user._id;
+  // let studentId = req.session.user._id;
+  let studentId = req.session.stduser._id;
   customerController.getQuestionsByExamId(examId)
       .then((success) => {
         res.render('customer/views/exam_page', {
@@ -142,7 +147,7 @@ namedRouter.post('customer.exam-finish', '/customer-exam/finish', function (req,
 
 });
 
-namedRouter.get('customer.exam-report', '/customer-exam/report', function (req, res) {
+namedRouter.get('customer.exam-report', '/customer-exam/report', isCustomerAuthenticated,  function (req, res) {
   res.render('customer/views/report_page', {
     title: 'Report Page | EMS'
 });

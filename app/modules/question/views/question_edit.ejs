@@ -16,92 +16,82 @@
 								<h4>Horizontal form :</h4>
 							</div>
 							<div class="form-body">
-								<% if(userUpdateErrorMessage) { %>
+								<% if(questionUpdateErrorMessage) { %>
 								<div class="alert alert-danger alert-dismissible">
 									<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 									<strong>Error!</strong>
-									<%= userUpdateErrorMessage %>
+									<%= questionUpdateErrorMessage %>
 								</div>
 								<% } %>
-								<form class="form-horizontal" action="<%= generateUrl('user.update') %>" method="POST">
+								<form class="form-horizontal" action="<%= generateUrl('question.update') %>" method="POST">
 									<div class="form-group">
-										<label for="full_name" class="col-sm-2 control-label">Full Name</label>
+										<label for="question" class="col-sm-2 control-label">Question</label>
 										<div class="col-sm-9">
-											<input type="text" class="form-control" id="full_name" name="full_name" placeholder="Jhon Doe" value="<%= userDetails.full_name %>">
+											<input type="text" class="form-control" id="question" name="question" value="<%= questionDetails.question %>" placeholder="Enter question">
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="email" class="col-sm-2 control-label">Email</label>
+										<label for="answer1" class="col-sm-2 control-label">Answer 1</label>
 										<div class="col-sm-9">
-											<input type="text" class="form-control" id="email" name="email" placeholder="jhon@gmail.com" value="<%= userDetails.email %>">
+											<input type="text" class="form-control" id="answer1" name="answer1" value="<%= questionDetails.answer1 %>" placeholder="Enter answer 1">
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="user_type" class="col-sm-2 control-label">Select type of user:</label>
+										<label for="answer2" class="col-sm-2 control-label">Answer 2</label>
 										<div class="col-sm-9">
-											<select class="form-control" id="user_type" name="user_type">
-												<option value="Student" <%=userDetails.user_type==='Student' ? 'selected' : '' %> >Student</option>
-												<option value="Teacher" <%=userDetails.user_type==='Teacher' ? 'selected' : '' %> >Teacher</option>
-												<option value="Non-teaching-staff" <%=userDetails.user_type==='Non-teaching-staff' ? 'selected' : '' %>
-													>Non-teaching-staff</option>
-											</select>
+											<input type="text" class="form-control" id="answer2" name="answer2" value="<%= questionDetails.answer2 %>" placeholder="Enter answer 2">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="answer3" class="col-sm-2 control-label">Answer 3</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="answer3" name="answer3" value="<%= questionDetails.answer3 %>" placeholder="Enter answer 3">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="answer4" class="col-sm-2 control-label">Answer 4</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="answer4" name="answer4" value="<%= questionDetails.answer4 %>" placeholder="Enter answer 4">
 										</div>
 									</div>
 
-
-									<% if(userDetails.user_type == 'Student'){ %>
 									<div class="form-group">
-										<label for="class_attended" class="col-sm-2 control-label">Select Class</label>
+										<label for="correct_answer" class="col-sm-2 control-label">Correct Answer</label>
 										<div class="col-sm-9">
-											<select class="form-control" id="class_attended" name="class_attended">
+											<input type="text" class="form-control" name="correct_answer" value="<%= questionDetails.correct_answer %>" id="correct_answer" placeholder="Enter correct answer">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label for="class" class="col-sm-2 control-label">Select class:</label>
+										<div class="col-sm-9">
+											<select class="form-control" id="class_id" name="class_id">
 												<% for(var i= 0; i< classList.length; i++){ %>
-
-												<option value="<%= classList[i]._id %>" <%=classList[i]._id.toString()==userDetails.class_attended._id.toString()
-												 ? 'selected' : '' %> >
-
+												<option value="<%= classList[i]._id %>" <%=classList[i]._id.toString()==questionDetails.class_id._id.toString() ? 'selected' : ''%>  >
 													<%= classList[i].class_name %>
-
 												</option>
-
 												<% } %>
 											</select>
 										</div>
 									</div>
-									<% } %>
-
-									<% if(userDetails.user_type == 'Teacher'){ %>
 									<div class="form-group">
-										<label for="subjects_taught" class="col-sm-2 control-label">Select Subjects</label>
+										<label for="question_type" class="col-sm-2 control-label">Select Subject:</label>
 										<div class="col-sm-9">
-											<select class="form-control" id="subjects_taught" name="subjects_taught[]" multiple="multiple">
-												<% for( var i = 0; i< subjectList.length; i++){ %>
-
-												<% for(var j = 0; j< taughtSubjectsList.length; j++){  %>
-
-												<option value="<%= subjectList[i]._id %>" <%=subjectList[i]._id.toString()==taughtSubjectsList[j]._id.toString()
-												 ? 'selected' : '' %> >
-
+											<select class="form-control" id="subject_id" name="subject_id">
+												<% for(var i= 0; i< subjectList.length; i++){ %>
+												<option value="<%= subjectList[i]._id %>" <%=subjectList[i]._id.toString()==questionDetails.subject_id._id.toString() ? 'selected' : ''%> >
 													<%= subjectList[i].subject_name %>
-
 												</option>
-
-												<% }  %>
-
-
 												<% } %>
 											</select>
 										</div>
 									</div>
-									<% } %>
 
-									<div class="form-group">
-										<label for="contact_no" class="col-sm-2 control-label">Contact Number</label>
-										<div class="col-sm-9">
-											<input type="text" class="form-control" id="contact_no" name="contact_no" placeholder="9940044444" value="<%= userDetails.contact_no %>">
-										</div>
-									</div>
-									<div class="col-sm-offset-2"> <button type="submit" class="btn btn-default">Update User</button> </div>
-									<input type="hidden" name="userIdVal" value="<%= userDetails._id %>" />
+
+									
+									
+									<div class="col-sm-offset-2"> <button type="submit" class="btn btn-default">Update question</button> </div>
+									<input type="hidden" name="questionIdVal" value="<%= questionDetails._id %>" />
 								</form>
 							</div>
 						</div>

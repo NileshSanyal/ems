@@ -14,7 +14,8 @@ var questionRepository = {
                 answer1: questionObj.answer1,
                 answer2: questionObj.answer2,
                 answer3: questionObj.answer3,                
-                answer4: questionObj.answer4,                
+                answer4: questionObj.answer4,
+                correct_answer: questionObj.correct_answer,                
                 subject_id: questionObj.subject_id,
                 class_id: questionObj.class_id
             });
@@ -73,7 +74,8 @@ var questionRepository = {
                         answer1: questionObj.answer1,
                         answer2: questionObj.answer2,
                         answer3: questionObj.answer3,                
-                        answer4: questionObj.answer4,                
+                        answer4: questionObj.answer4,     
+                        correct_answer: questionObj.correct_answer,             
                         subject_id: questionObj.subject_id,
                         class_id: questionObj.class_id
                 

@@ -1,22 +1,22 @@
-const express = require('express'); // framework
+const express = require('express'); 
 const app = express();
 
-const session = require('express-session'); // session management
+const session = require('express-session'); 
 const MongoDBStore = require('connect-mongodb-session')(session);
-const cookieParser = require('cookie-parser');//cookie store
-const bodyParser = require('body-parser');// form data collect
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
         
 const path = require('path');
 
 const moment = require('moment');
 
-const flash = require('connect-flash');// for flash message
+const flash = require('connect-flash');
 
 const fs = require('fs');
 
-const engine = require('ejs-locals');// more facility for ejs templating
+const engine = require('ejs-locals');
 
-require('dotenv').config();// env
+require('dotenv').config();
 
 const port = process.env.PORT;
 
@@ -34,7 +34,7 @@ const config = require('./config/config');
 
 // auth = require("./config/auth")(); 
 
-const _ = require("underscore"); // js utility
+const _ = require("underscore"); 
 
 var Q = require('q');
 
@@ -77,6 +77,9 @@ app.use(passport.session());
 app.use(flash());
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+// another static resource
+app.use(express.static(path.join(__dirname, 'node_modules')));
 
 var allowCrossDomain = function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');

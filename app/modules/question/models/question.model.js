@@ -9,6 +9,7 @@ var questionSchema = new Schema({
   answer2: { type: String, required: true },
   answer3: { type: String, required: true },
   answer4: { type: String, required: true },
+  correct_answer: { type: String, required: true },
   class_id: { type: Schema.Types.ObjectId, ref: 'Class' },
   subject_id: { type: Schema.Types.ObjectId, ref: 'Subject' },
   isDeleted: { type: Boolean, default: false },
