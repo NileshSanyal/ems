@@ -8,8 +8,6 @@ exports.getExamDetails = (req, res) => {
 
         var deffered = Q.defer();
 
-        // console.log('Line 11 customer controller: ', req);
-
         customerRepo.getExamDetails(req, (error, result) =>{
             if(error)
                 deffered.reject({"status": 200, "message": error});
@@ -45,6 +43,22 @@ exports.finishExam = (req, res) => {
             deffered.reject({"status": 200, "message": error});
         else
             deffered.resolve({"status": 409, "successMsg": result});
+    });
+
+    return deffered.promise;
+
+};
+
+exports.getQuestionAnswerDetailsByStudentId = (req, res) => {
+
+    var deffered = Q.defer();
+
+    customerRepo.getQuestionAnswerDetailsByStudentId(req, (error, result) => {
+        if(error)
+            deffered.reject({"status": 200, "message": error});
+        else
+            deffered.resolve({"status": 409, "successMsg": result});
+        
     });
 
     return deffered.promise;

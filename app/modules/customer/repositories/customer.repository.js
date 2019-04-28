@@ -11,6 +11,9 @@ const _ = require("underscore");
 
 const mongoose = require('mongoose');
 
+const fs = require('fs');
+const path = require('path');
+
 var customerRepository = {
 
     getExamDetails: (customerObj, cb) => {
@@ -82,35 +85,6 @@ var customerRepository = {
 
         // end prev working code without conditions 
 
-         /*
-            Intended output for saving document in mongodb
-            {
-                "exam_details": [
-                    {
-                        "exam_status": "Started",
-                        "exam_start_time": "2019-03-30T15:23:56.467Z",
-                        "exam_end_time": "2019-03-30T15:23:56.467Z",
-                        "time_spent_by_student": "",
-                        "exam_id": "5c7172cad349cd185c687f15"
-                    }
-                ],
-                "question_answer_details": [
-                    {
-                        "question_id": "5c70d41ac9307e0468851ed0",
-                        "answer_given": "It is a logical way to connect multiple tables by unique key/keys."
-                    },
-                    {
-                        "question_id": "5c70e516a4d11129d83855f2",
-                        "answer_given": "Table is a logical unit."
-                    }
-                ],
-                "student_id": "5c8a71a2107905205c530014"
-            }
-
-
-        */
-
-
         // another approach
         ExamPerformance.findOneAndUpdate(
             { student_id: finishedExmObj.student_id }, 
@@ -146,51 +120,103 @@ var customerRepository = {
                             return cb(null, 'Exam finished successfully!');
                     });
                 }
-                    // return cb(null, 'Exam finished successfully!');
             }
         );
-        // end another approach
+    },
 
+    getQuestionAnswerDetailsByStudentId: (studentExamObj, cb) => {
+        let jsonObj = {};
+        let jsonArray = [];
+        jsonObj = { jsonArray };
+        let jsonData = '';
+        const examId = studentExamObj.examId;
 
-        // check if data already exists for a student, if so update collection, otherwise insert
-
-        /* ExamPerformance
-            .findOne({student_id: finishedExmObj.student_id}, function(err, docs) {
-                if(docs) {
-                    console.log('If block');
-                    console.log('Modified obj: ');
-                    console.log('===========');
-                    console.log(JSON.stringify(finishedExmObj, undefined, 2));
-                    console.log('===========');
-                    // let exmPerf = new ExamPerformance();
-
-                    // update subdocuments (exam_details array and question_answer_details array) accordingly
-                    docs.exam_details.push(finishedExmObj.exam_details);
-                    docs.question_answer_details.push(finishedExmObj.question_answer_details);
-                    docs.save((err, docs) => {
-                        if (err)
-                            return cb(err, null);
-                        else
-                            return cb(null, 'Exam finished successfully!');
-                    });
+        ExamPerformance
+            .findOne({student_id: studentExamObj.studentId  }, 'question_answer_details -_id')
+            .exec((err, qaDetails) => {
+                if (err) {
+                    console.log('Error!!: ', err);
+                    return cb(err, null);
                 }
-
                 else {
-                    console.log('Else block');
-                    let exmPerf = new ExamPerformance({
-                        student_id: finishedExmObj.student_id,
-                        exam_details: finishedExmObj.exam_details,
-                        question_answer_details: finishedExmObj.question_answer_details
-                    });
-            
-                    exmPerf.save((err, exmPrfObj) => {
+                    // console.log(JSON.stringify(qaDetails, undefined, 2));
+
+
+                   jsonData = jsonObj;
+                // jsonData = JSON.stringify(qaDetails, null, 2);
+
+                    // get questions from exam collection
+                    Exam.findById(examId)
+                    .populate('questions')
+                    .exec((err, questions) => {
                         if (err)
                             return cb(err, null);
-                        else
-                            return cb(null, 'Exam finished successfully!');
+                        else {
+
+                            /* qaDetails["question_answer_details"].forEach(function(qObj){ 
+                                if(qObj.question_id === questions[0]._id) {
+                                    console.log('Question id matched');
+                                }
+                            }); */
+
+
+                            // console.log(JSON.stringify(questions["questions"], null, 2));
+
+                            let questionArr = [];
+                            let count = 0;
+                            questionArr = questions["questions"];
+                            console.log('Questions array: ', questionArr);
+                            // questionArr.forEach(function(qElement) {
+                                for(var i in questionArr) {
+                                    var qElement = questionArr[i];
+                                    
+                                count++;
+                                console.log(qElement);
+                                // console.log('Question id: ',qElement._id);
+                                // console.log('Correct answer: ', qElement.correct_answer);
+                                // jsonData["question_id"] = '';
+                                
+                                // jsonData["question_id"] = qElement._id.toString();
+                                // jsonData["correct_answer"] = qElement.correct_answer.toString();
+                                // jsonData["id"] = count;
+
+                                jsonData["question_id"].push(qElement._id.toString());
+                                jsonData["correct_answer"].push(qElement.correct_answer.toString());
+
+
+                               /*  qaDetails["question_answer_details"].forEach(function (key) {
+
+                                    if(key.question_id.toString() == qElement._id.toString()) {
+                                        // add correct answer key to the json array for appropriate qId key
+                                        jsonData["question_answer_details"]["question_id"]["correct_answer"] = '';
+                                        jsonData["question_answer_details"]["question_id"]["correct_answer"] = qElement.correct_answer;
+                                        console.log('Found match for key_qId', key.question_id, ' with qElement_qId ', qElement._id);
+                                    }
+                                 }); */
+
+                                 fs.writeFile(path.join(__dirname, 'student_result.json'), JSON.stringify(jsonData, undefined, 2), (err) => {
+                                    if (err) 
+                                        console.log(err);
+                                    else
+                                        console.log('Data written to file');
+                                });
+
+                            // }); 
+                                }
+
+                            return cb(null, questions);
+                        }
+                            
                     });
+                    // end
+                    
+
+                    // console.log(JSON.stringify(qaDetails, null, 2));
+                    return cb(null, qaDetails);
                 }
-            }); */
+        });
+
+        cb(null, 'Exam result published!!');
 
     }
 

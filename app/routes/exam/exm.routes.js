@@ -116,6 +116,7 @@ namedRouter.post('exam.allotExamForStudent', '/allotExamForStudent', function (r
 
 });
 
+
 // namedRouter.get('user.edit', '/edit/:id', function (req, res) {
 //   let userUpdateErrorMessage = req.flash('userUpdateErrorMessage')[0];
 //   classController.getAllClasses(req)
