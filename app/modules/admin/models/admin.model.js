@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 const Joi = require('joi');
-var bcrypt = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt');
 
 var Schema = mongoose.Schema;
 
