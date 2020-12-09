@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
   },
-  "author": "abhishek",
+  "author": "nilesh",
   "license": "ISC",
   "dependencies": {
     "app-module-path": "^2.2.0",
