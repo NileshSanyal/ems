@@ -15,7 +15,6 @@ exports.saveadmin = (req, res) =>{
             deffered.resolve({ "status": 200, data: result, "message": result  });    
 
     });
-    console.log('test');
     return deffered.promise;
 };
 
